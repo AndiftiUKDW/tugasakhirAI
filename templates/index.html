@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .form-group {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        label {
+            display: block;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Your Health Details</h1>
+    <form action="/predict" method="post">
+        <div class="form-group">
+            <label for="PhysicalHealthDays">PhysicalHealthDays</label>
+            <input type="text" name="PhysicalHealthDays" required>
+        </div>
+        <div class="form-group">
+            <label for="MentalHealthDays">MentalHealthDays</label>
+            <input type="text" name="MentalHealthDays" required>
+        </div>
+        <div class="form-group">
+            <label for="SleepHours">SleepHours</label>
+            <input type="text" name="SleepHours" required>
+        </div>
+        <div class="form-group">
+            <label for="HeightInMeters">HeightInMeters</label>
+            <input type="text" name="HeightInMeters" required>
+        </div>
+        <div class="form-group">
+            <label for="WeightInKilograms">WeightInKilograms</label>
+            <input type="text" name="WeightInKilograms" required>
+        </div>
+        <div class="form-group">
+            <label for="BMI">BMI</label>
+            <input type="text" name="BMI" required>
+        </div>
+        <div class="form-group">
+            <label for="Sex">Sex</label>
+            <select name="Sex_Male">
+                <option value="0">Female</option>
+                <option value="1">Male</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="GeneralHealth">GeneralHealth</label>
+            <select name="GeneralHealth">
+                <option value="Fair">Fair</option>
+                <option value="Good">Good</option>
+                <option value="Poor">Poor</option>
+                <option value="Very good">Very good</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="LastCheckupTime">LastCheckupTime</label>
+            <select name="LastCheckupTime">
+                <option value="Within past 2 years (1 year but less than 2 years ago)">Within past 2 years (1 year but less than 2 years ago)</option>
+                <option value="Within past 5 years (2 years but less than 5 years ago)">Within past 5 years (2 years but less than 5 years ago)</option>
+                <option value="Within past year (anytime less than 12 months ago)">Within past year (anytime less than 12 months ago)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="PhysicalActivities">PhysicalActivities</label>
+            <select name="PhysicalActivities_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="RemovedTeeth">RemovedTeeth</label>
+            <select name="RemovedTeeth">
+                <option value="None of them">None of them</option>
+                <option value="6 or more, but not all">6 or more, but not all</option>
+                <option value="All">All</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HadAngina">HadAngina</label>
+            <select name="HadAngina_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HadAsthma">HadAsthma</label>
+            <select name="HadAsthma_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HadSkinCancer">HadSkinCancer</label>
+            <select name="HadSkinCancer_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HadCOPD">HadCOPD</label>
+            <select name="HadCOPD_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HadDepressiveDisorder">HadDepressiveDisorder</label>
+            <select name="HadDepressiveDisorder_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HadKidneyDisease">HadKidneyDisease</label>
+            <select name="HadKidneyDisease_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HadArthritis">HadArthritis</label>
+            <select name="HadArthritis_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HadDiabetes">HadDiabetes</label>
+            <select name="HadDiabetes">
+                <option value="No, pre-diabetes or borderline diabetes">No, pre-diabetes or borderline diabetes</option>
+                <option value="Yes">Yes</option>
+                <option value="Yes, but only during pregnancy (female)">Yes, but only during pregnancy (female)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="DeafOrHardOfHearing">DeafOrHardOfHearing</label>
+            <select name="DeafOrHardOfHearing_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="BlindOrVisionDifficulty">BlindOrVisionDifficulty</label>
+            <select name="BlindOrVisionDifficulty_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="DifficultyConcentrating">DifficultyConcentrating</label>
+            <select name="DifficultyConcentrating_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="DifficultyWalking">DifficultyWalking</label>
+            <select name="DifficultyWalking_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="DifficultyDressingBathing">DifficultyDressingBathing</label>
+            <select name="DifficultyDressingBathing_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="DifficultyErrands">DifficultyErrands</label>
+            <select name="DifficultyErrands_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="SmokerStatus">SmokerStatus</label>
+            <select name="SmokerStatus">
+                <option value="Never smoked">Never smoked</option>
+                <option value="Former smoker">Former smoker</option>
+                <option value="Current smoker - now smokes some days">Current smoker - now smokes some days</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ECigaretteUsage">ECigaretteUsage</label>
+            <select name="ECigaretteUsage">
+                <option value="Not at all (right now)">Not at all (right now)</option>
+                <option value="Use them every day">Use them every day</option>
+                <option value="Use them some days">Use them some days</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ChestScan">ChestScan</label>
+            <select name="ChestScan_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="RaceEthnicityCategory">RaceEthnicityCategory</label>
+            <select name="RaceEthnicityCategory">
+                <option value="Hispanic">Hispanic</option>
+                <option value="Multiracial, Non-Hispanic">Multiracial, Non-Hispanic</option>
+                <option value="Other race only, Non-Hispanic">Other race only, Non-Hispanic</option>
+                <option value="White only, Non-Hispanic">White only, Non-Hispanic</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="AgeCategory">AgeCategory</label>
+            <select name="AgeCategory">
+                <option value="Age 25 to 29">Age 25 to 29</option>
+                <option value="Age 30 to 34">Age 30 to 34</option>
+                <option value="Age 35 to 39">Age 35 to 39</option>
+                <option value="Age 40 to 44">Age 40 to 44</option>
+                <option value="Age 45 to 49">Age 45 to 49</option>
+                <option value="Age 50 to 54">Age 50 to 54</option>
+                <option value="Age 55 to 59">Age 55 to 59</option>
+                <option value="Age 60 to 64">Age 60 to 64</option>
+                <option value="Age 65 to 69">Age 65 to 69</option>
+                <option value="Age 70 to 74">Age 70 to 74</option>
+                <option value="Age 75 to 79">Age 75 to 79</option>
+                <option value="Age 80 or older">Age 80 or older</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="AlcoholDrinkers">AlcoholDrinkers</label>
+            <select name="AlcoholDrinkers_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HIVTesting">HIVTesting</label>
+            <select name="HIVTesting_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="FluVaxLast12">FluVaxLast12</label>
+            <select name="FluVaxLast12_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="PneumoVaxEver">PneumoVaxEver</label>
+            <select name="PneumoVaxEver_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="TetanusLast10Tdap">TetanusLast10Tdap</label>
+            <select name="TetanusLast10Tdap">
+                <option value="Yes, received Tdap">Yes, received Tdap</option>
+                <option value="Yes, received tetanus shot but not sure what type">Yes, received tetanus shot but not sure what type</option>
+                <option value="Yes, received tetanus shot, but not Tdap">Yes, received tetanus shot, but not Tdap</option>
+                <option>no</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="HighRiskLastYear">HighRiskLastYear</label>
+            <select name="HighRiskLastYear_Yes">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="CovidPos">CovidPos</label>
+            <select name="CovidPos">
+                <option value="Tested positive using home test without a health professional">Tested positive using home test without a health professional</option>
+                <option value="Yes">Yes</option>
+                <option>no</option>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
